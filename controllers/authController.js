@@ -6,7 +6,7 @@ import JWT from "jsonwebtoken";
 
 export const registerController = async (req, res) => {
   try {
-    const { name, email, password, phone, address, answer } = req.body;
+    const { name, email, password, phone, address,address2, answer } = req.body;
     //validations
     if (!name) {
       return res.send({ error: "Name is Required" });
@@ -22,6 +22,9 @@ export const registerController = async (req, res) => {
     }
     if (!address) {
       return res.send({ message: "Address is Required" });
+    }
+    if (!address2) {
+      return res.send({ message: "Address 2 is Required" });
     }
     if (!answer) {
       return res.send({ message: "Answer is Required" });
@@ -43,6 +46,7 @@ export const registerController = async (req, res) => {
       email,
       phone,
       address,
+      address2,
       password: hashedPassword,
       answer,
     }).save();
@@ -101,6 +105,7 @@ export const loginController = async (req, res) => {
         email: user.email,
         phone: user.phone,
         address: user.address,
+        address2:user.address2,
         role: user.role,
       },
       token,
@@ -167,7 +172,7 @@ export const testController = (req, res) => {
 //update prfole
 export const updateProfileController = async (req, res) => {
   try {
-    const { name, email, password, address, phone } = req.body;
+    const { name, email, password, address,address2, phone } = req.body;
     const user = await userModel.findById(req.user._id);
     //password
     if (password && password.length < 6) {
@@ -181,6 +186,7 @@ export const updateProfileController = async (req, res) => {
         password: hashedPassword || user.password,
         phone: phone || user.phone,
         address: address || user.address,
+        address2: address2 || user.address2,
       },
       { new: true }
     );

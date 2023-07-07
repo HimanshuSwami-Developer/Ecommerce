@@ -18,9 +18,18 @@ const productSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    ratings: {
+      type: Number,
+      required: true,
+    },
     category: {
       type: mongoose.ObjectId,
       ref: "Category",
+      required: true,
+    },
+    brand: {
+      type: mongoose.ObjectId,
+      ref: "Brand",
       required: true,
     },
     quantity: {
